@@ -5,7 +5,7 @@ A `.html` file that helps calculate the highest armor value you can achieve at a
 
 ## Why?
 
-If you are familiar with how Remannt II's armor system works, weight is directly related to your character’s Speed and Stamina. Each armor has a certain Weight number, and you will receive a stamina cost penalty if the total Weight value exceeds a certain threshold. Generally, you want to keep your character as light as possible without sacrificing your defense. The thresholds are as follows:
+If you are familiar with how Remnant II's armor system works, weight is directly related to your character’s Speed and Stamina. Each armor has a certain Weight number, and you will receive a stamina cost penalty if the total Weight value exceeds a certain threshold. Generally, you want to keep your character as light as possible without sacrificing your defense. The thresholds are as follows:
 
 * **Light:** <=25 – You receive no Stamina Cost Penalty and can perform fast dodges.
 * **Normal:** 26-50 – You get 25 percent of the Stamina Cost Penalty and can dodge normally.
