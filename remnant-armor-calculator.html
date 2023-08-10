@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Remnant II: Armor Calculator</title>
+  <style>
+	body {
+		background-color: #181a1b;
+		color: white;
+		font-family: Arial, Helvetica, sans-serif;
+	}
+    table {
+		border-collapse: collapse;
+		width: 600px;
+		margin-top: 20px;
+    }
+
+    th, td {
+		border: 1px solid #8c8273;
+		padding: 8px;
+		text-align: left;
+    }
+
+    th {
+		background-color: #1f2223;
+    }
+	input {
+		box-sizing: border-box;
+		border: 1px solid #858585;
+		border-radius: 2px;
+		background-color: #3b3b3b;
+		color: white;
+		width: 50px;
+	}
+  </style>
+</head>
+<body>
+  <h1>Remnant II: Highest Armor Per Weight</h1>
+  
+  <!-- Input for target weight -->
+  <label for="weightTarget">Enter Target Weight:</label>
+  <input type="number" id="weightTarget" value="50">
+  <button onclick="updateArmorSelection()">Update</button>
+  
+  <div id="output"></div>
+
+  <script>
+    function knapsackMaxArmor(armorItems, weightTarget) {
+      function isSubsetValid(items) {
+        const totalWeight = items.reduce((total, item) => total + item.weight, 0);
+        return totalWeight <= weightTarget;
+      }
+
+      const itemTypes = ["Head", "Body", "Legs", "Gloves"];
+      let maxArmor = 0;
+      let validCombinations = [];
+
+      function findSubset(currentIndex, currentItems) {
+        if (currentIndex === itemTypes.length) {
+          if (isSubsetValid(currentItems)) {
+            const totalArmor = currentItems.reduce((total, item) => total + item.armor, 0);
+            if (totalArmor > maxArmor) {
+              maxArmor = totalArmor;
+              validCombinations = [currentItems.slice()];
+            } else if (totalArmor === maxArmor) {
+              validCombinations.push(currentItems.slice());
+            }
+          }
+          return;
+        }
+
+        const itemType = itemTypes[currentIndex];
+        const validItems = armorItems.filter(item => item.type === itemType && item.weight <= weightTarget);
+
+        if (validItems.length > 0) {
+          for (const item of validItems) {
+            findSubset(currentIndex + 1, [...currentItems, item]);
+          }
+        } else {
+          findSubset(currentIndex + 1, currentItems);
+        }
+      }
+
+      findSubset(0, []);
+      return validCombinations;
+    }
+
+// Armors
+let armorItems = [
+{ name: 'Academics Overcoat', type: 'Body', armor: 37, weight: 21 },
+{ name: 'Bruiser Bodyplate', type: 'Body', armor: 57, weight: 29 },
+{ name: 'Dendroid Chest', type: 'Body', armor: 23, weight: 12 },
+{ name: 'Elder Raiment', type: 'Body', armor: 17, weight: 9 },
+{ name: 'Fae Royal Bodyplate', type: 'Body', armor: 57, weight: 27 },
+{ name: 'Field Medic Overcoat', type: 'Body', armor: 35, weight: 16 },
+{ name: 'Void Carapace', type: 'Body', armor: 55, weight: 28 },
+{ name: 'High Noon Duds', type: 'Body', armor: 38, weight: 19 },
+{ name: 'Knotted Cage', type: 'Body', armor: 51, weight: 28 },
+{ name: 'Leto Mark II Armor', type: 'Body', armor: 83, weight: 44 },
+{ name: 'Nightstalker Garb', type: 'Body', armor: 34, weight: 18 },
+{ name: 'Radiant Protector', type: 'Body', armor: 59, weight: 30 },
+{ name: 'Realmwalker Tunic', type: 'Body', armor: 21, weight: 11 },
+{ name: 'Red Widow Raiment', type: 'Body', armor: 45, weight: 23 },
+{ name: 'Space Worker Body', type: 'Body', armor: 22, weight: 11 },
+{ name: 'Survivor Overcoat', type: 'Body', armor: 36, weight: 19 },
+{ name: 'Technician Bodyplate', type: 'Body', armor: 56, weight: 30 },
+{ name: 'Trainer Clothes', type: 'Body', armor: 36, weight: 18 },
+{ name: 'Academics Gloves', type: 'Gloves', armor: 7, weight: 4 },
+{ name: 'Bruiser Gloves', type: 'Gloves', armor: 11, weight: 7 },
+{ name: 'Dendroid Grips', type: 'Gloves', armor: 4, weight: 3 },
+{ name: 'Elder Gloves', type: 'Gloves', armor: 3, weight: 3 },
+{ name: 'Fae Royal Vambraces', type: 'Gloves', armor: 10, weight: 7 },
+{ name: 'Field Medic Gloves', type: 'Gloves', armor: 8, weight: 5 },
+{ name: 'Void Wraps', type: 'Gloves', armor: 8, weight: 6 },
+{ name: 'High Noon Armguards', type: 'Gloves', armor: 8, weight: 6 },
+{ name: 'Knotted Gloves', type: 'Gloves', armor: 10, weight: 6 },
+{ name: 'Leto Mark II Gloves', type: 'Gloves', armor: 17, weight: 10 },
+{ name: 'Nightstalker Gloves', type: 'Gloves', armor: 6, weight: 3 },
+{ name: 'Radiant Bracers', type: 'Gloves', armor: 11, weight: 6 },
+{ name: 'Realmwalker Gloves', type: 'Gloves', armor: 3, weight: 2 },
+{ name: 'Red Widow Bracers', type: 'Gloves', armor: 7, weight: 5 },
+{ name: 'Space Worker Gloves', type: 'Gloves', armor: 4, weight: 2 },
+{ name: 'Survivor Gloves', type: 'Gloves', armor: 6, weight: 4 },
+{ name: 'Technician Gloves', type: 'Gloves', armor: 10, weight: 6 },
+{ name: 'Trainer Bracer', type: 'Gloves', armor: 7, weight: 3 },
+{ name: 'Academics Hat', type: 'Head', armor: 11, weight: 7 },
+{ name: 'Bruiser Helmet', type: 'Head', armor: 15, weight: 9 },
+{ name: 'Dendroid Mask', type: 'Head', armor: 7, weight: 3 },
+{ name: 'Elder Headdress', type: 'Head', armor: 12, weight: 6 },
+{ name: 'Fae Royal Headcover', type: 'Head', armor: 15, weight: 8 },
+{ name: 'Field Medic Hat', type: 'Head', armor: 9, weight: 5 },
+{ name: 'Void Skull', type: 'Head', armor: 15, weight: 8 },
+{ name: 'High Noon Hat', type: 'Head', armor: 8, weight: 4 },
+{ name: 'Knotted Helm', type: 'Head', armor: 13, weight: 8 },
+{ name: 'Leto Mark II Helmet', type: 'Head', armor: 22, weight: 13 },
+{ name: 'Nightstalker Shroud', type: 'Head', armor: 11, weight: 6 },
+{ name: 'Radiant Visage', type: 'Head', armor: 14, weight: 8 },
+{ name: 'Realmwalker Beret', type: 'Head', armor: 4, weight: 2 },
+{ name: 'Red Widow Headdress', type: 'Head', armor: 13, weight: 8 },
+{ name: 'Space Worker Mask', type: 'Head', armor: 6, weight: 3 },
+{ name: 'Technician Helmet', type: 'Head', armor: 14, weight: 8 },
+{ name: 'Trainer Cap', type: 'Head', armor: 7, weight: 4 },
+{ name: 'Academics Trousers', type: 'Legs', armor: 17, weight: 10 },
+{ name: 'Bruiser Boots', type: 'Legs', armor: 27, weight: 15 },
+{ name: 'Dendroid Leggings', type: 'Legs', armor: 13, weight: 7 },
+{ name: 'Elder Leggings', type: 'Legs', armor: 12, weight: 6 },
+{ name: 'Fae Royal Greaves', type: 'Legs', armor: 25, weight: 13 },
+{ name: 'Field Medic Trousers', type: 'Legs', armor: 16, weight: 9 },
+{ name: 'Void Greaves', type: 'Legs', armor: 26, weight: 15 },
+{ name: 'High Noon Soles', type: 'Legs', armor: 18, weight: 10 },
+{ name: 'Knotted Greaves', type: 'Legs', armor: 26, weight: 14 },
+{ name: 'Leto Mark II Leggings', type: 'Legs', armor: 46, weight: 23 },
+{ name: 'Nightstalker Pants', type: 'Legs', armor: 18, weight: 9 },
+{ name: 'Radiant Greaves', type: 'Legs', armor: 29, weight: 17 },
+{ name: 'Realmwalker Pantaloons', type: 'Legs', armor: 12, weight: 6 },
+{ name: 'Red Widow Leggings', type: 'Legs', armor: 23, weight: 12 },
+{ name: 'Space Worker Legs', type: 'Legs', armor: 12, weight: 7 },
+{ name: 'Survivor Leggings', type: 'Legs', armor: 18, weight: 10 },
+{ name: 'Technician Greaves', type: 'Legs', armor: 26, weight: 14 },
+{ name: 'Trainer Workboots', type: 'Legs', armor: 17, weight: 8 },
+{ name: 'Labyrinth Treads', type: 'Legs', armor: 19, weight: 10 },{ name: 'Labyrinth Gauntlets', type: 'Gloves', armor: 19, weight: 10 },{ name: 'Labyrinth Mantle', type: 'Body', armor: 37, weight: 20 },{ name: 'Labyrith Headplate', type: 'Head', armor: 12, weight: 7 },
+
+// Add armor items here with "name", "type", "armor", and "weight" properties
+    ];
+
+	let weightTarget = 50;
+    let validCombinations = knapsackMaxArmor(armorItems, weightTarget);
+
+	function updateArmorSelection() {
+      const targetWeightInput = document.getElementById("weightTarget");
+      weightTarget = parseInt(targetWeightInput.value);
+      validCombinations = knapsackMaxArmor(armorItems, weightTarget);
+      displayArmorSelection();
+    }
+	
+    // Output the selected armor items to the screen as separate tables for each combination
+	function displayArmorSelection() {
+      const outputElement = document.getElementById("output");
+      outputElement.innerHTML = "";
+
+      validCombinations.forEach(combination => {
+        const table = document.createElement("table");
+
+      // Create table header
+      const headerRow = document.createElement("tr");
+      ["Type", "Name", "Armor", "Weight"].forEach(headerText => {
+        const headerCell = document.createElement("th");
+        headerCell.textContent = headerText;
+        headerRow.appendChild(headerCell);
+      });
+      table.appendChild(headerRow);
+
+      // Create table rows for each valid combination
+      combination.forEach(item => {
+        const itemRow = document.createElement("tr");
+        ["type", "name", "armor", "weight"].forEach(property => {
+          const cell = document.createElement("td");
+          cell.textContent = item[property];
+          itemRow.appendChild(cell);
+        });
+        table.appendChild(itemRow);
+      });
+
+      // Calculate and display the total armor and weight for each combination
+      const totalArmor = combination.reduce((total, item) => total + item.armor, 0);
+      const totalWeight = combination.reduce((total, item) => total + item.weight, 0);
+
+      const totalRow = document.createElement("tr");
+      const totalLabelCell = document.createElement("td");
+      totalLabelCell.setAttribute("colspan", 2);
+      totalLabelCell.textContent = "Total:";
+      totalRow.appendChild(totalLabelCell);
+
+      const totalArmorCell = document.createElement("td");
+      totalArmorCell.textContent = totalArmor;
+      totalRow.appendChild(totalArmorCell);
+
+      const totalWeightCell = document.createElement("td");
+      totalWeightCell.textContent = totalWeight;
+      totalRow.appendChild(totalWeightCell);
+
+      table.appendChild(totalRow);
+
+		outputElement.appendChild(table);
+      });
+    }
+	displayArmorSelection();
+  </script>
+</body>
+</html>
