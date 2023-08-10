@@ -13,9 +13,9 @@ If you are familiar with how Remannt II's armor system works, weight is directly
 * **Overweight:** >=76 – You suffer 75 percent of the Stamina Cost Penalty. You cannot dodge and can only perform belly flops.
 
 ## Usage
-1. Download the `.html` file, which you can run locally on your machine. 
+1. Download the `remnant-armor-calculator.html` file, which you can run locally on your machine in a web browser. 
 2. Enter a "Weight" target in the input field and click "Update" 
 3. The tool should show sets up Armors that will get you the highest armor for the weight specified.
 
 ## Images
-![Preview image]()
+![Preview image](https://github.com/threeskimo/remnant-2-armor-weight-calculator/blob/main/preview.png?raw=true)
