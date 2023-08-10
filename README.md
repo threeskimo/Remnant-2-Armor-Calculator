@@ -1,4 +1,4 @@
-# remnant-2-armor-weight
+# remnant-2-armor-weight-calculator
 A .html file that helps calculate the highest armor value you can achieve at a specific weight.
 
 >**NOTE:** This calculator currently only contains the Armor sets that are available at launch. If I'm still playing Remnant II at the time of any additional armor sets being released, I will update the calculator.
