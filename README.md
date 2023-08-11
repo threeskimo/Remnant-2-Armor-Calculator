@@ -12,6 +12,8 @@ If you are familiar with how Remnant II's armor system works, weight is directly
 * **Heavy:** 51-75 – You gain 50 percent of the Stamina Cost Penalty, and your Speed is much slower.
 * **Overweight:** >=76 – You suffer 75 percent of the Stamina Cost Penalty. You cannot dodge and can only perform belly flops.
 
+This calculator determines the highest armor you can possibly have at any given weight/threshold. 
+
 ## Usage
 1. Download the `remnant-armor-calculator.html` file, which you can run locally on your machine in a web browser. 
 2. Enter a "Weight" target in the input field and click "Update" 
