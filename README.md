@@ -17,7 +17,7 @@ This calculator determines the highest armor you can possibly have at any given 
 ## Usage
 1. Download the `remnant-armor-calculator.html` file, which you can run locally on your machine in a web browser. 
 2. Enter a "Weight" target in the input field and click "Update" 
-3. The tool should show sets of Armors that will get you the highest armor for the weight specified.
+3. The tool should show sets of armors (head, body, legs, gloves) that will get you the highest armor value possible for the weight specified.
 
 ## Images
 ![Preview image](https://github.com/threeskimo/remnant-2-armor-weight-calculator/blob/main/preview.png?raw=true)
