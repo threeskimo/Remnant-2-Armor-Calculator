@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Remnant II: Armor Calculator</title>
-  <style>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Remnant II: Armor Calculator</title>
+	<style>
 	body {
 		background-color: #181a1b;
 		color: white;
@@ -10,10 +11,16 @@
 	}
     table {
 		border-collapse: collapse;
-		width: 600px;
+		width: 100%;
 		margin-top: 20px;
     }
-
+	.container {
+		margin:auto;
+		width: 100%;
+	}
+	@media only screen and (min-width: 600px) {
+		.container {width:600px;};
+	}
     th, td {
 		border: 1px solid #8c8273;
 		padding: 8px;
@@ -34,7 +41,8 @@
   </style>
 </head>
 <body>
-  <h1>Remnant II: Highest Armor Per Weight</h1>
+<div class="container">
+  <h1>Remnant II: Armor Calculator</h1>
   
   <!-- Input for target weight -->
   <label for="weightTarget">Enter Target Weight:</label>
@@ -269,5 +277,6 @@ let armorItems = [
     }
 	displayArmorSelection();
   </script>
+  </div>
 </body>
 </html>
