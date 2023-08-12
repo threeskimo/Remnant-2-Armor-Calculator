@@ -12,7 +12,7 @@ If you are familiar with how Remnant II's armor system works, weight is directly
 * ![#c9c96b](https://placehold.co/10x10/c9c96b/c9c96b.png) **Heavy:** 51-75 – Slow Dodge. 50% Stamina Cost Penalty.
 * ![#f24a45](https://placehold.co/10x10/f24a45/f24a45.png) **Ultra:** >=76 – FLOP. 75% Stamina Cost Penalty.
 
-This calculator determines the highest armor you can possibly have at any given weight/threshold. The calculator does not take into account armor resistances such as bleed, fire, shock, etc.
+This calculator determines the best armor pieces (head, body, legs, gloves) to use to recieve the highest armor value possible at a given weight. The calculator does not take into account armor resistances such as bleed, fire, shock, etc.
 
 ## Usage
 1. Download the `remnant-armor-calculator.html` file, which you can run locally on your machine in a web browser. 
