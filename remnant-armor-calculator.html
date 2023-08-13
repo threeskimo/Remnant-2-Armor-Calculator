@@ -36,7 +36,16 @@
 		border-radius: 2px;
 		background-color: #3b3b3b;
 		color: white;
-		width: 50px;
+		width: 55px;
+		padding: 8px;
+		border-radius: 8px;
+	}
+	button {
+		padding: 8px;
+		border-radius: 8px;
+		border: 0px;
+		background-color: #6b6b6b;
+		color: white;
 	}
   </style>
 </head>
@@ -45,9 +54,9 @@
   <h1>Remnant II: Armor Calculator</h1>
   
   <!-- Input for target weight -->
-  <label for="weightTarget">Enter Target Weight:</label>
+  <label for="weightTarget">Target Weight:</label>
   <input type="number" id="weightTarget" value="50">
-  <button onclick="updateArmorSelection()">Update</button>
+  <button id="btn" onclick="updateArmorSelection()">Update</button>
   
   <div id="output"></div>
 
@@ -276,6 +285,16 @@ let armorItems = [
       });
     }
 	displayArmorSelection();
+	
+	// Allow "enter" to be used to submit   
+	let btn = document.getElementById('btn');
+	document.addEventListener('keypress', (event)=>{
+		let keyCode = event.keyCode ? event.keyCode : event.which;
+		if(keyCode === 13) {
+			btn.click();
+		}
+	});
+
   </script>
   </div>
 </body>
