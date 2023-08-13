@@ -15,7 +15,7 @@ If you are familiar with how Remnant II's armor system works, weight is directly
 This calculator determines the best armor pieces (head, body, legs, gloves) to use to recieve the highest armor value possible at a given weight. The calculator does not take into account armor resistances such as bleed, fire, shock, etc.
 
 ## Usage
-1. Download the `remnant-armor-calculator.html` file, which you can run locally on your machine in a web browser (or run it [here on Gtihub](https://threeskimo.github.io/Remnant-2-Armor-Calculator/)). 
+1. Download the `remnant-armor-calculator.html` file, which you can run locally on your machine in a web browser (or run it [here on Github](https://threeskimo.github.io/Remnant-2-Armor-Calculator/)). 
 2. Enter a "Weight" target in the input field and click "Update" 
 3. The tool should show sets of armors (head, body, legs, gloves) that will get you the highest armor value possible for the weight specified.
 
