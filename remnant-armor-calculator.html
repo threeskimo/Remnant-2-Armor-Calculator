@@ -4,6 +4,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Remnant II: Armor Calculator</title>
 	<style>
+	html {
+		scrollbar-gutter: stable both-edges;
+	}
 	body {
 		background-color: #181a1b;
 		color: white;
@@ -15,12 +18,20 @@
 		margin-top: 20px;
     }
 	.container {
-		margin:auto;
+		margin: auto;
 		width: 100%;
 	}
-	@media only screen and (min-width: 600px) {
-		.container {width:600px;};
+	@media (min-width: 650px) {
+		.container {width:600px;}
+		select {width:300px;}
 	}
+	@media (max-width: 650px) {
+		select {width:100%}
+	}
+	@media only screen and (min-width: 650px) {
+
+	}
+	
     th, td {
 		border: 1px solid #8c8273;
 		padding: 8px;
@@ -40,12 +51,43 @@
 		padding: 8px;
 		border-radius: 8px;
 	}
+	select {
+		box-sizing: border-box;
+		border: 1px solid #858585;
+		border-radius: 2px;
+		background-color: #3b3b3b;
+		color: white;
+		padding: 8px;
+		border-radius: 8px;
+	}
 	button {
 		padding: 8px;
 		border-radius: 8px;
 		border: 0px;
 		background-color: #6b6b6b;
 		color: white;
+	}
+	.alert {
+		background-color: #381616;
+		border-color: #ebccd1;
+		color: #ba6664;
+		padding: 15px;
+		margin-bottom: 20px;
+		border: 1px solid transparent;
+		border-radius: 4px;
+	}
+	.menu-container {
+	  display: grid;
+	  grid-template-columns: auto 1fr;
+	  gap: 10px;
+	}
+
+	.menu-label {
+	  align-self: center;
+	}
+
+	.menu-input {
+	  align-self: center;
 	}
   </style>
 </head>
@@ -54,52 +96,108 @@
   <h1>Remnant II: Armor Calculator</h1>
   
   <!-- Input for target weight -->
-  <label for="weightTarget">Target Weight:</label>
-  <input type="number" id="weightTarget" value="50">
-  <button id="btn" onclick="updateArmorSelection()">Update</button>
+  <div class="menu-container">
+	<div class="menu-label">
+		<label for="targetWeight">Target Weight:</label>
+	</div>
+	<div class="menu-input">
+		<input type="number" id="targetWeight" value="50" onchange="updateArmorSelection()">
+		<button id="btn" onclick="updateArmorSelection()">Update</button>
+	</div>
+
+	<!-- Dropdown menus for locked armor items -->
+	<div class="menu-label">
+		<label for="headLock">Lock Head Armor:</label>
+	</div>
+	<div class="menu-input">
+		<select class="select" id="headLock" onchange="updateArmorSelection()">
+		<option value="">None</option>
+		<!-- Populate options from armorItems for head armor -->
+		</select>
+	</div>
+	
+	<div class="menu-label">
+		<label for="bodyLock">Lock Body Armor:</label>
+	</div>
+	<div class="menu-input">
+		<select id="bodyLock" onchange="updateArmorSelection()">
+		<option value="">None</option>
+		<!-- Populate options from armorItems for body armor -->
+		</select>
+	</div>
+
+	<div class="menu-label">
+		<label for="legsLock">Lock Leg Armor:</label>
+	</div>
+	<div class="menu-input">
+		<select id="legsLock" onchange="updateArmorSelection()">
+		<option value="">None</option>
+		<!-- Populate options from armorItems for leg armor -->
+		</select>
+	</div>
+
+	<div class="menu-label">
+		<label for="glovesLock">Lock Glove Armor:</label>
+	</div>
+	<div class="menu-input">
+		<select id="glovesLock" onchange="updateArmorSelection()">
+		<option value="">None</option>
+		<!-- Populate options from armorItems for glove armor -->
+		</select>
+	</div>
+  </div>
   
   <div id="output"></div>
 
   <script>
-    function knapsackMaxArmor(armorItems, weightTarget) {
-      function isSubsetValid(items) {
-        const totalWeight = items.reduce((total, item) => total + item.weight, 0);
-        return totalWeight <= weightTarget;
-      }
+    function knapsackMaxArmor(armorItems, targetWeight, lockedItems) {
+		function isSubsetValid(items) {
+			const totalWeight = items.reduce((total, item) => total + item.weight, 0);
+			return totalWeight === targetWeight;
+		}
 
-      const itemTypes = ["Head", "Body", "Legs", "Gloves"];
-      let maxArmor = 0;
-      let validCombinations = [];
+		const itemTypes = ["Head", "Body", "Legs", "Gloves"];
+		let validCombinations = [];
 
-      function findSubset(currentIndex, currentItems) {
-        if (currentIndex === itemTypes.length) {
-          if (isSubsetValid(currentItems)) {
-            const totalArmor = currentItems.reduce((total, item) => total + item.armor, 0);
-            if (totalArmor > maxArmor) {
-              maxArmor = totalArmor;
-              validCombinations = [currentItems.slice()];
-            } else if (totalArmor === maxArmor) {
-              validCombinations.push(currentItems.slice());
-            }
-          }
-          return;
-        }
+		function findSubset(currentIndex, currentItems) {
+		if (currentIndex === itemTypes.length) {
+		  if (isSubsetValid(currentItems)) {
+			validCombinations.push(currentItems.slice());
+		  }
+		  return;
+		}
 
-        const itemType = itemTypes[currentIndex];
-        const validItems = armorItems.filter(item => item.type === itemType && item.weight <= weightTarget);
+		const itemType = itemTypes[currentIndex];
+		const validItems = armorItems.filter(
+		  item => item.type === itemType && item.weight <= targetWeight && (lockedItems[itemType] === null || lockedItems[itemType] === item.name)
+		);
 
-        if (validItems.length > 0) {
-          for (const item of validItems) {
-            findSubset(currentIndex + 1, [...currentItems, item]);
-          }
-        } else {
-          findSubset(currentIndex + 1, currentItems);
-        }
-      }
+		if (validItems.length > 0) {
+		  for (const item of validItems) {
+			findSubset(currentIndex + 1, [...currentItems, item]);
+		  }
+		} else {
+		  findSubset(currentIndex + 1, currentItems);
+		}
+		}
 
-      findSubset(0, []);
-      return validCombinations;
-    }
+		findSubset(0, []);
+		
+		// Sort valid combinations by highest armor value first, then by lowest weight
+		validCombinations.sort((a, b) => {
+		  const armorA = a.reduce((total, item) => total + item.armor, 0);
+		  const armorB = b.reduce((total, item) => total + item.armor, 0);
+		  if (armorA !== armorB) {
+			return armorB - armorA;
+		  } else {
+			const weightA = a.reduce((total, item) => total + item.weight, 0);
+			const weightB = b.reduce((total, item) => total + item.weight, 0);
+			return weightA - weightB;
+		  }
+		});
+
+		return validCombinations;
+	}
 
 // Armors
 let armorItems = [
@@ -108,10 +206,22 @@ let armorItems = [
 { name: 'Academics Trousers', type: 'Legs', armor: 23, weight: 10 },
 { name: 'Academics Gloves', type: 'Gloves', armor: 8, weight: 4 },
 
+{ name: 'Bandits Mask', type: 'Head', armor: 6, weight: 3 },
+{ name: 'Bandit Jacket', type: 'Body', armor: 36, weight: 11 },
+{ name: 'Bandit Trousers', type: 'Legs', armor: 19, weight: 6 },
+{ name: 'Bandit Gloves', type: 'Gloves', armor: 6, weight: 2 },
+
 { name: 'Bruiser Helmet', type: 'Head', armor: 15, weight: 9 },
 { name: 'Bruiser Bodyplate', type: 'Body', armor: 57, weight: 29 },
 { name: 'Bruiser Boots', type: 'Legs', armor: 27, weight: 15 },
 { name: 'Bruiser Gloves', type: 'Gloves', armor: 11, weight: 7 },
+
+{ name: 'Crown of the Red Prince', type: 'Head', armor: 8, weight: 5 },
+
+{ name: 'Cultist Hat', type: 'Head', armor: 9, weight: 5 },
+{ name: 'Cultist Duster', type: 'Body', armor: 46, weight: 17 },
+{ name: 'Cultist Britches', type: 'Legs', armor: 23, weight: 10 },
+{ name: 'Cultist Gloves', type: 'Gloves', armor: 5, weight: 6 },
 
 { name: 'Dendroid Mask', type: 'Head', armor: 7, weight: 3 },
 { name: 'Dendroid Chest', type: 'Body', armor: 36, weight: 12 },
@@ -133,11 +243,6 @@ let armorItems = [
 { name: 'Field Medic Trousers', type: 'Legs', armor: 24, weight: 9 },
 { name: 'Field Medic Gloves', type: 'Gloves', armor: 9, weight: 5 },
 
-{ name: 'Void Skull', type: 'Head', armor: 15, weight: 8 },
-{ name: 'Void Carapace', type: 'Body', armor: 56, weight: 28 },
-{ name: 'Void Greaves', type: 'Legs', armor: 28, weight: 15 },
-{ name: 'Void Wraps', type: 'Gloves', armor: 11, weight: 6 },
-
 { name: 'High Noon Hat', type: 'Head', armor: 9, weight: 4 },
 { name: 'High Noon Duds', type: 'Body', armor: 48, weight: 19 },
 { name: 'High Noon Soles', type: 'Legs', armor: 24, weight: 10 },
@@ -148,10 +253,22 @@ let armorItems = [
 { name: 'Knotted Greaves', type: 'Legs', armor: 26, weight: 14 },
 { name: 'Knotted Gloves', type: 'Gloves', armor: 11, weight: 6 },
 
+{ name: 'Labyrinth Headplate', type: 'Head', armor: 13, weight: 7 },
+{ name: 'Labyrinth Mantle', type: 'Body', armor: 45, weight: 20 },
+{ name: 'Labyrinth Treads', type: 'Legs', armor: 25, weight: 10 },
+{ name: 'Labyrinth Gauntlets', type: 'Gloves', armor: 25, weight: 10 },
+
+{ name: 'Leto Mark I Helmet', type: 'Head', armor: 29, weight: 15 },
+{ name: 'Leto Mark I Armor', type: 'Body', armor: 101, weight: 45 },
+{ name: 'Leto Mark I Leggings', type: 'Legs', armor: 51, weight: 24 },
+{ name: 'Leto Mark I Gloves', type: 'Gloves', armor: 20, weight: 11 },
+
 { name: 'Leto Mark II Helmet', type: 'Head', armor: 33, weight: 13 },
 { name: 'Leto Mark II Armor', type: 'Body', armor: 107, weight: 44 },
 { name: 'Leto Mark II Leggings', type: 'Legs', armor: 55, weight: 23 },
 { name: 'Leto Mark II Gloves', type: 'Gloves', armor: 22, weight: 10 },
+
+{ name: 'Lodestone Crown', type: 'Head', armor: 5, weight: 3 },
 
 { name: 'Nightstalker Shroud', type: 'Head', armor: 11, weight: 6 },
 { name: 'Nightstalker Garb', type: 'Body', armor: 44, weight: 18 },
@@ -192,44 +309,40 @@ let armorItems = [
 { name: 'Trainer Workboots', type: 'Legs', armor: 22, weight: 8 },
 { name: 'Trainer Bracer', type: 'Gloves', armor: 9, weight: 3 },
 
-{ name: 'Cultist Hat', type: 'Head', armor: 9, weight: 5 },
-{ name: 'Cultist Duster', type: 'Body', armor: 46, weight: 17 },
-{ name: 'Cultist Britches', type: 'Legs', armor: 23, weight: 10 },
-{ name: 'Cultist Gloves', type: 'Gloves', armor: 5, weight: 6 },
+{ name: 'Void Skull', type: 'Head', armor: 15, weight: 8 },
+{ name: 'Void Carapace', type: 'Body', armor: 56, weight: 28 },
+{ name: 'Void Greaves', type: 'Legs', armor: 28, weight: 15 },
+{ name: 'Void Wraps', type: 'Gloves', armor: 11, weight: 6 },
 
-{ name: 'Bandits Mask', type: 'Head', armor: 6, weight: 3 },
-{ name: 'Bandit Jacket', type: 'Body', armor: 36, weight: 11 },
-{ name: 'Bandit Trousers', type: 'Legs', armor: 19, weight: 6 },
-{ name: 'Bandit Gloves', type: 'Gloves', armor: 6, weight: 2 },
-
-{ name: 'Leto Mark I Helmet', type: 'Head', armor: 29, weight: 15 },
-{ name: 'Leto Mark I Armor', type: 'Body', armor: 101, weight: 45 },
-{ name: 'Leto Mark I Leggings', type: 'Legs', armor: 51, weight: 24 },
-{ name: 'Leto Mark I Gloves', type: 'Gloves', armor: 20, weight: 11 },
-
-{ name: 'Labyrinth Headplate', type: 'Head', armor: 13, weight: 7 },
-{ name: 'Labyrinth Mantle', type: 'Body', armor: 45, weight: 20 },
-{ name: 'Labyrinth Treads', type: 'Legs', armor: 25, weight: 10 },
-{ name: 'Labyrinth Gauntlets', type: 'Gloves', armor: 25, weight: 10 },
-
-{ name: '---', type: 'Head', armor: 0, weight: 0 },
-{ name: '---', type: 'Body', armor: 0, weight: 0 },
-{ name: '---', type: 'Legs', armor: 0, weight: 0 },
-{ name: '---', type: 'Gloves', armor: 0, weight: 0 },
-
-{ name: 'Crown of the Red Prince', type: 'Head', armor: 8, weight: 5 },
-{ name: 'Lodestone Crown', type: 'Head', armor: 5, weight: 3 },
+{ name: '--Empty--', type: 'Head', armor: 0, weight: 0 },
+{ name: '--Empty--', type: 'Body', armor: 0, weight: 0 },
+{ name: '--Empty--', type: 'Legs', armor: 0, weight: 0 },
+{ name: '--Empty--', type: 'Gloves', armor: 0, weight: 0 },
 
 // Add armor items here with "name", "type", "armor", and "weight" properties
     ];
 
-	let weightTarget = 50;
-    let validCombinations = knapsackMaxArmor(armorItems, weightTarget);
+	let targetWeight = 50;
+	let lockedItems = {
+		Head: null,
+		Body: null,
+		Legs: null,
+		Gloves: null,
+	};
+    let allValidCombinations = knapsackMaxArmor(armorItems, targetWeight, lockedItems);
 
-	function updateArmorSelection() {
-      const targetWeightInput = document.getElementById("weightTarget");
-      weightTarget = parseInt(targetWeightInput.value);
-      validCombinations = knapsackMaxArmor(armorItems, weightTarget);
+    function updateArmorSelection() {
+      const targetWeightInput = document.getElementById("targetWeight");
+      targetWeight = parseInt(targetWeightInput.value);
+
+      lockedItems = {
+        Head: document.getElementById("headLock").value || null,
+        Body: document.getElementById("bodyLock").value || null,
+        Legs: document.getElementById("legsLock").value || null,
+        Gloves: document.getElementById("glovesLock").value || null,
+      };
+	  
+      allValidCombinations = knapsackMaxArmor(armorItems, targetWeight, lockedItems);
       displayArmorSelection();
     }
 	
@@ -237,8 +350,36 @@ let armorItems = [
 	function displayArmorSelection() {
       const outputElement = document.getElementById("output");
       outputElement.innerHTML = "";
+	  
+	// Check to see if locked items are above weight target and display error
+	const lockedWeight = Object.values(lockedItems).reduce((totalWeight, lockedItem) => {
+      const item = armorItems.find(armor => armor.name === lockedItem);
+      return totalWeight + (item ? item.weight : 0);
+    }, 0);
 
-      validCombinations.forEach(combination => {
+    if (lockedWeight > targetWeight) {
+      outputElement.innerHTML = "<br><br><div class='alert'>Error: Combined weight of locked armors exceeds target weight.</div>";
+      return;
+    }
+	
+      let maxArmorValue = -1;
+      let bestCombinations = [];
+
+      allValidCombinations.forEach(combination => {
+        const totalArmor = combination.reduce((total, item) => total + item.armor, 0);
+
+        if (totalArmor > maxArmorValue) {
+          maxArmorValue = totalArmor;
+          bestCombinations = [combination];
+        } else if (totalArmor === maxArmorValue) {
+          bestCombinations.push(combination);
+        }
+      });
+
+	  if (bestCombinations.length === 0) {
+		outputElement.innerHTML = "<br><br><div class='alert'>No armor combinations exists to reach the target weight.</div>";
+	  } else {
+      bestCombinations.forEach(combination => {
         const table = document.createElement("table");
 
       // Create table header
@@ -284,6 +425,37 @@ let armorItems = [
 		outputElement.appendChild(table);
       });
     }
+	}
+	// Populate dropdown menus with armor options
+    function populateDropdowns() {
+      const headLockDropdown = document.getElementById("headLock");
+      const bodyLockDropdown = document.getElementById("bodyLock");
+      const legsLockDropdown = document.getElementById("legsLock");
+      const glovesLockDropdown = document.getElementById("glovesLock");
+
+      armorItems.forEach(item => {
+        const option = document.createElement("option");
+        option.value = item.name;
+        option.textContent = item.name;
+        
+        switch (item.type) {
+          case "Head":
+            headLockDropdown.appendChild(option);
+            break;
+          case "Body":
+            bodyLockDropdown.appendChild(option);
+            break;
+          case "Legs":
+            legsLockDropdown.appendChild(option);
+            break;
+          case "Gloves":
+            glovesLockDropdown.appendChild(option);
+            break;
+        }
+      });
+    }
+
+    populateDropdowns();
 	displayArmorSelection();
 	
 	// Allow "enter" to be used to submit   
