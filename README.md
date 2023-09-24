@@ -21,7 +21,7 @@ This calculator determines the best armor pieces (head, body, legs, gloves) to u
 
 ## Changelog
 
-* [[8-18-2023](https://github.com/threeskimo/Remnant-2-Armor-Calculator/commit/222a1cacdb8b93fbff207b248c148c32629f109c)] Added ability to lock-in armors, for you fashion conscious travelers out there. 😉
+* [[08-18-2023](https://github.com/threeskimo/Remnant-2-Armor-Calculator/commit/222a1cacdb8b93fbff207b248c148c32629f109c)] Added ability to lock-in armors, for you fashion conscious travelers out there. 😉
 
 ## Images
 ![Preview image](https://github.com/threeskimo/remnant-2-armor-weight-calculator/blob/main/preview.png?raw=true)
