@@ -89,6 +89,9 @@
 	.menu-input {
 	  align-self: center;
 	}
+	#targetWeight {
+	  width: 65px;
+	}
   </style>
 </head>
 <body>
@@ -101,7 +104,7 @@
 		<label for="targetWeight">Target Weight:</label>
 	</div>
 	<div class="menu-input">
-		<input type="number" id="targetWeight" value="50" onchange="updateArmorSelection()">
+		<input type="number" id="targetWeight" step="0.1" value="50" onchange="updateArmorSelection()" >
 		<button id="btn" onclick="updateArmorSelection()">Update</button>
 	</div>
 
@@ -201,120 +204,120 @@
 
 // Armors
 let armorItems = [
-{ name: 'Academics Hat', type: 'Head', armor: 11, weight: 7 },
-{ name: 'Academics Overcoat', type: 'Body', armor: 47, weight: 21 },
-{ name: 'Academics Trousers', type: 'Legs', armor: 23, weight: 10 },
-{ name: 'Academics Gloves', type: 'Gloves', armor: 8, weight: 4 },
+{ name: 'Academics Hat', type: 'Head', armor: 12.7, weight: 5.2 },
+{ name: 'Academics Overcoat', type: 'Body', armor: 49.2, weight: 20.8 },
+{ name: 'Academics Trousers', type: 'Legs', armor: 24.6, weight: 10.4 },
+{ name: 'Academics Gloves', type: 'Gloves', armor: 12.3, weight: 5.2 },
 
-{ name: 'Bandits Mask', type: 'Head', armor: 6, weight: 3 },
-{ name: 'Bandit Jacket', type: 'Body', armor: 36, weight: 11 },
-{ name: 'Bandit Trousers', type: 'Legs', armor: 19, weight: 6 },
-{ name: 'Bandit Gloves', type: 'Gloves', armor: 6, weight: 2 },
+{ name: 'Bandits Mask', type: 'Head', armor: 6.8, weight: 2.7 },
+{ name: 'Bandit Jacket', type: 'Body', armor: 27.2, weight: 10.8 },
+{ name: 'Bandit Trousers', type: 'Legs', armor: 13.6, weight: 5.4 },
+{ name: 'Bandit Gloves', type: 'Gloves', armor: 6.8, weight: 2.7 },
 
-{ name: 'Bruiser Helmet', type: 'Head', armor: 15, weight: 9 },
-{ name: 'Bruiser Bodyplate', type: 'Body', armor: 57, weight: 29 },
-{ name: 'Bruiser Boots', type: 'Legs', armor: 27, weight: 15 },
-{ name: 'Bruiser Gloves', type: 'Gloves', armor: 11, weight: 7 },
+{ name: 'Bruiser Helmet', type: 'Head', armor: 17.6, weight: 8.1 },
+{ name: 'Bruiser Bodyplate', type: 'Body', armor: 70.2, weight: 32.4 },
+{ name: 'Bruiser Boots', type: 'Legs', armor: 35, weight: 16.2 },
+{ name: 'Bruiser Gloves', type: 'Gloves', armor: 17.6, weight: 8.1 },
 
-{ name: 'Crown of the Red Prince', type: 'Head', armor: 8, weight: 5 },
+{ name: 'Crown of the Red Prince', type: 'Head', armor: 6, weight: 6 },
 
-{ name: 'Cultist Hat', type: 'Head', armor: 9, weight: 5 },
-{ name: 'Cultist Duster', type: 'Body', armor: 46, weight: 17 },
-{ name: 'Cultist Britches', type: 'Legs', armor: 23, weight: 10 },
-{ name: 'Cultist Gloves', type: 'Gloves', armor: 5, weight: 6 },
+{ name: 'Cultist Hat', type: 'Head', armor: 11.1, weight: 4.6 },
+{ name: 'Cultist Duster', type: 'Body', armor: 44.6, weight: 18.4 },
+{ name: 'Cultist Britches', type: 'Legs', armor: 22.2, weight: 9.2 },
+{ name: 'Cultist Gloves', type: 'Gloves', armor: 11.1, weight: 4.6 },
 
-{ name: 'Dendroid Mask', type: 'Head', armor: 7, weight: 3 },
-{ name: 'Dendroid Chest', type: 'Body', armor: 36, weight: 12 },
-{ name: 'Dendroid Leggings', type: 'Legs', armor: 19, weight: 7 },
-{ name: 'Dendroid Grips', type: 'Gloves', armor: 6, weight: 3 },
+{ name: 'Dendroid Mask', type: 'Head', armor: 7.7, weight: 3.1 },
+{ name: 'Dendroid Chest', type: 'Body', armor: 30.8, weight: 12.4 },
+{ name: 'Dendroid Leggings', type: 'Legs', armor: 15.4, weight: 6.2 },
+{ name: 'Dendroid Grips', type: 'Gloves', armor: 7.7, weight: 3.1 },
 
-{ name: 'Elder Headdress', type: 'Head', armor: 6, weight: 6 },
-{ name: 'Elder Raiment', type: 'Body', armor: 36, weight: 9 },
-{ name: 'Elder Leggings', type: 'Legs', armor: 19, weight: 6 },
-{ name: 'Elder Gloves', type: 'Gloves', armor: 6, weight: 3 },
+{ name: 'Elder Headdress', type: 'Head', armor: 7.5, weight: 3 },
+{ name: 'Elder Raiment', type: 'Body', armor: 29.6, weight: 12 },
+{ name: 'Elder Leggings', type: 'Legs', armor: 14.8, weight: 6 },
+{ name: 'Elder Gloves', type: 'Gloves', armor: 7.5, weight: 3 },
 
-{ name: 'Fae Royal Headcover', type: 'Head', armor: 15, weight: 8 },
-{ name: 'Fae Royal Bodyplate', type: 'Body', armor: 57, weight: 27 },
-{ name: 'Fae Royal Greaves', type: 'Legs', armor: 26, weight: 13 },
-{ name: 'Fae Royal Vambraces', type: 'Gloves', armor: 10, weight: 7 },
+{ name: 'Fae Royal Headcover', type: 'Head', armor: 15.4, weight: 6.6 },
+{ name: 'Fae Royal Bodyplate', type: 'Body', armor: 60, weight: 26.4 },
+{ name: 'Fae Royal Greaves', type: 'Legs', armor: 30, weight: 13.2 },
+{ name: 'Fae Royal Vambraces', type: 'Gloves', armor: 15, weight: 6.6 },
 
-{ name: 'Field Medic Hat/Mask', type: 'Head', armor: 10, weight: 5 },
-{ name: 'Field Medic Overcoat', type: 'Body', armor: 45, weight: 16 },
-{ name: 'Field Medic Trousers', type: 'Legs', armor: 24, weight: 9 },
-{ name: 'Field Medic Gloves', type: 'Gloves', armor: 9, weight: 5 },
+{ name: 'Field Medic Hat/Mask', type: 'Head', armor: 10.6, weight: 4.4 },
+{ name: 'Field Medic Overcoat', type: 'Body', armor: 42.8, weight: 17.6 },
+{ name: 'Field Medic Trousers', type: 'Legs', armor: 21.4, weight: 8.8 },
+{ name: 'Field Medic Gloves', type: 'Gloves', armor: 10.6, weight: 4.4 },
 
-{ name: 'High Noon Hat', type: 'Head', armor: 9, weight: 4 },
-{ name: 'High Noon Duds', type: 'Body', armor: 48, weight: 19 },
-{ name: 'High Noon Soles', type: 'Legs', armor: 24, weight: 10 },
-{ name: 'High Noon Armguards', type: 'Gloves', armor: 9, weight: 6 },
+{ name: 'High Noon Hat', type: 'Head', armor: 11.7, weight: 4.9 },
+{ name: 'High Noon Duds', type: 'Body', armor: 47.1, weight: 19.6 },
+{ name: 'High Noon Soles', type: 'Legs', armor: 23.4, weight: 9.8 },
+{ name: 'High Noon Armguards', type: 'Gloves', armor: 11.7, weight: 4.9 },
 
-{ name: 'Knotted Helm', type: 'Head', armor: 13, weight: 8 },
-{ name: 'Knotted Cage', type: 'Body', armor: 53, weight: 28 },
-{ name: 'Knotted Greaves', type: 'Legs', armor: 26, weight: 14 },
-{ name: 'Knotted Gloves', type: 'Gloves', armor: 11, weight: 6 },
+{ name: 'Knotted Helm', type: 'Head', armor: 15.5, weight: 6.9 },
+{ name: 'Knotted Cage', type: 'Body', armor: 62.2, weight: 27.6 },
+{ name: 'Knotted Greaves', type: 'Legs', armor: 31.1, weight: 13.8 },
+{ name: 'Knotted Gloves', type: 'Gloves', armor: 15.5, weight: 6.9 },
 
-{ name: 'Labyrinth Headplate', type: 'Head', armor: 13, weight: 7 },
-{ name: 'Labyrinth Mantle', type: 'Body', armor: 45, weight: 20 },
-{ name: 'Labyrinth Treads', type: 'Legs', armor: 25, weight: 10 },
-{ name: 'Labyrinth Gauntlets', type: 'Gloves', armor: 25, weight: 10 },
+{ name: 'Labyrinth Headplate', type: 'Head', armor: 12.9, weight: 5.4 },
+{ name: 'Labyrinth Mantle', type: 'Body', armor: 51, weight: 21.6 },
+{ name: 'Labyrinth Treads', type: 'Legs', armor: 25.5, weight: 10.8 },
+{ name: 'Labyrinth Gauntlets', type: 'Gloves', armor: 25.8, weight: 10.8 },
 
-{ name: 'Leto Mark I Helmet', type: 'Head', armor: 29, weight: 15 },
-{ name: 'Leto Mark I Armor', type: 'Body', armor: 101, weight: 45 },
-{ name: 'Leto Mark I Leggings', type: 'Legs', armor: 51, weight: 24 },
-{ name: 'Leto Mark I Gloves', type: 'Gloves', armor: 20, weight: 11 },
+{ name: 'Leto Mark I Helmet', type: 'Head', armor: 22.6, weight: 11.9 },
+{ name: 'Leto Mark I Armor', type: 'Body', armor: 90.4, weight: 47.5 },
+{ name: 'Leto Mark I Leggings', type: 'Legs', armor: 45.2, weight: 23.7 },
+{ name: 'Leto Mark I Gloves', type: 'Gloves', armor: 22.6, weight: 11.9 },
 
-{ name: 'Leto Mark II Helmet', type: 'Head', armor: 33, weight: 13 },
-{ name: 'Leto Mark II Armor', type: 'Body', armor: 107, weight: 44 },
-{ name: 'Leto Mark II Leggings', type: 'Legs', armor: 55, weight: 23 },
-{ name: 'Leto Mark II Gloves', type: 'Gloves', armor: 22, weight: 10 },
+{ name: 'Leto Mark II Helmet', type: 'Head', armor: 21.8, weight: 11.1 },
+{ name: 'Leto Mark II Armor', type: 'Body', armor: 88.8, weight: 45.2 },
+{ name: 'Leto Mark II Leggings', type: 'Legs', armor: 44.4, weight: 22.6 },
+{ name: 'Leto Mark II Gloves', type: 'Gloves', armor: 21.8, weight: 11.1 },
 
-{ name: 'Lodestone Crown', type: 'Head', armor: 5, weight: 3 },
+{ name: 'Lodestone Crown', type: 'Head', armor: 6.5, weight: 2.6 },
 
-{ name: 'Navigators Helm', type: 'Head', armor: 12, weight: 8 },
+{ name: 'Navigators Helm', type: 'Head', armor: 16, weight: 7.6 },
 
-{ name: 'Nightstalker Shroud', type: 'Head', armor: 11, weight: 6 },
-{ name: 'Nightstalker Garb', type: 'Body', armor: 44, weight: 18 },
-{ name: 'Nightstalker Pants', type: 'Legs', armor: 25, weight: 9 },
-{ name: 'Nightstalker Gloves', type: 'Gloves', armor: 8, weight: 3 },
+{ name: 'Nightstalker Shroud', type: 'Head', armor: 10.9, weight: 4.5 },
+{ name: 'Nightstalker Garb', type: 'Body', armor: 43.6, weight: 18 },
+{ name: 'Nightstalker Pants', type: 'Legs', armor: 21.8, weight: 9 },
+{ name: 'Nightstalker Gloves', type: 'Gloves', armor: 10.9, weight: 4.5 },
 
-{ name: 'Radiant Visage', type: 'Head', armor: 14, weight: 8 },
-{ name: 'Radiant Protector', type: 'Body', armor: 59, weight: 30 },
-{ name: 'Radiant Greaves', type: 'Legs', armor: 29, weight: 17 },
-{ name: 'Radiant Bracers', type: 'Gloves', armor: 11, weight: 6 },
+{ name: 'Radiant Visage', type: 'Head', armor: 17.2, weight: 7.9 },
+{ name: 'Radiant Protector', type: 'Body', armor: 69, weight: 31.6 },
+{ name: 'Radiant Greaves', type: 'Legs', armor: 34.5, weight: 15.8 },
+{ name: 'Radiant Bracers', type: 'Gloves', armor: 17.2, weight: 7.9 },
 
-{ name: 'Realmwalker Beret', type: 'Head', armor: 5, weight: 2 },
-{ name: 'Realmwalker Tunic', type: 'Body', armor: 35, weight: 11 },
-{ name: 'Realmwalker Pantaloons', type: 'Legs', armor: 20, weight: 6 },
-{ name: 'Realmwalker Gloves', type: 'Gloves', armor: 4, weight: 2 },
+{ name: 'Realmwalker Beret', type: 'Head', armor: 7.2, weight: 2.9 },
+{ name: 'Realmwalker Tunic', type: 'Body', armor: 29, weight: 11.6 },
+{ name: 'Realmwalker Pantaloons', type: 'Legs', armor: 14.5, weight: 5.8 },
+{ name: 'Realmwalker Gloves', type: 'Gloves', armor: 7.2, weight: 2.9 },
 
-{ name: 'Red Widow Headdress', type: 'Head', armor: 12, weight: 8 },
-{ name: 'Red Widow Raiment', type: 'Body', armor: 47, weight: 23 },
-{ name: 'Red Widow Leggings', type: 'Legs', armor: 24, weight: 12 },
-{ name: 'Red Widow Bracers', type: 'Gloves', armor: 8, weight: 5 },
+{ name: 'Red Widow Headdress', type: 'Head', armor: 13.2, weight: 5.6 },
+{ name: 'Red Widow Raiment', type: 'Body', armor: 52.8, weight: 22.4 },
+{ name: 'Red Widow Leggings', type: 'Legs', armor: 26.2, weight: 11.2 },
+{ name: 'Red Widow Bracers', type: 'Gloves', armor: 13.1, weight: 5.6 },
 
-{ name: 'Space Worker Mask', type: 'Head', armor: 7, weight: 3 },
-{ name: 'Space Worker Body', type: 'Body', armor: 36, weight: 11 },
-{ name: 'Space Worker Legs', type: 'Legs', armor: 19, weight: 7 },
-{ name: 'Space Worker Gloves', type: 'Gloves', armor: 6, weight: 2 },
+{ name: 'Space Worker Mask', type: 'Head', armor: 7, weight: 2.8 },
+{ name: 'Space Worker Body', type: 'Body', armor: 28, weight: 11.2 },
+{ name: 'Space Worker Legs', type: 'Legs', armor: 14, weight: 5.6 },
+{ name: 'Space Worker Gloves', type: 'Gloves', armor: 7, weight: 2.8 },
 
-{ name: 'Survivor Overcoat', type: 'Body', armor: 46, weight: 19 },
-{ name: 'Survivor Leggings', type: 'Legs', armor: 24, weight: 10 },
-{ name: 'Survivor Gloves', type: 'Gloves', armor: 8, weight: 4 },
+{ name: 'Survivor Overcoat', type: 'Body', armor: 39.2, weight: 16 },
+{ name: 'Survivor Leggings', type: 'Legs', armor: 19.6, weight: 8 },
+{ name: 'Survivor Gloves', type: 'Gloves', armor: 9.8, weight: 4 },
 
-{ name: 'Technician Helmet', type: 'Head', armor: 14, weight: 8 },
-{ name: 'Technician Bodyplate', type: 'Body', armor: 59, weight: 30 },
-{ name: 'Technician Greaves', type: 'Legs', armor: 29, weight: 14 },
-{ name: 'Technician Gloves', type: 'Gloves', armor: 10, weight: 6 },
+{ name: 'Technician Helmet', type: 'Head', armor: 16.6, weight: 7.5 },
+{ name: 'Technician Bodyplate', type: 'Body', armor: 66.4, weight: 30 },
+{ name: 'Technician Greaves', type: 'Legs', armor: 33.2, weight: 15 },
+{ name: 'Technician Gloves', type: 'Gloves', armor: 16.6, weight: 7.5 },
 
-{ name: 'Trainer Cap', type: 'Head', armor: 7, weight: 4 },
-{ name: 'Trainer Clothes', type: 'Body', armor: 46, weight: 18 },
-{ name: 'Trainer Workboots', type: 'Legs', armor: 22, weight: 8 },
-{ name: 'Trainer Bracer', type: 'Gloves', armor: 9, weight: 3 },
+{ name: 'Trainer Cap', type: 'Head', armor: 10, weight: 4.1 },
+{ name: 'Trainer Clothes', type: 'Body', armor: 40, weight: 16.4 },
+{ name: 'Trainer Workboots', type: 'Legs', armor: 20, weight: 8.2 },
+{ name: 'Trainer Bracer', type: 'Gloves', armor: 10.1, weight: 4.1 },
 
-{ name: 'Void Skull', type: 'Head', armor: 15, weight: 8 },
-{ name: 'Void Carapace', type: 'Body', armor: 56, weight: 28 },
-{ name: 'Void Greaves', type: 'Legs', armor: 28, weight: 15 },
-{ name: 'Void Wraps', type: 'Gloves', armor: 11, weight: 6 },
+{ name: 'Void Skull', type: 'Head', armor: 15.9, weight: 7.1 },
+{ name: 'Void Carapace', type: 'Body', armor: 63.6, weight: 28.4 },
+{ name: 'Void Greaves', type: 'Legs', armor: 31.8, weight: 14.2 },
+{ name: 'Void Wraps', type: 'Gloves', armor: 15.9, weight: 7.1 },
 
 { name: '--Empty--', type: 'Head', armor: 0, weight: 0 },
 { name: '--Empty--', type: 'Body', armor: 0, weight: 0 },
@@ -335,7 +338,7 @@ let armorItems = [
 
     function updateArmorSelection() {
       const targetWeightInput = document.getElementById("targetWeight");
-      targetWeight = parseInt(targetWeightInput.value);
+      targetWeight = parseFloat(targetWeightInput.value);
 
       lockedItems = {
         Head: document.getElementById("headLock").value || null,
@@ -369,6 +372,7 @@ let armorItems = [
 
       allValidCombinations.forEach(combination => {
         const totalArmor = combination.reduce((total, item) => total + item.armor, 0);
+		
 
         if (totalArmor > maxArmorValue) {
           maxArmorValue = totalArmor;
@@ -411,11 +415,12 @@ let armorItems = [
       const totalRow = document.createElement("tr");
       const totalLabelCell = document.createElement("td");
       totalLabelCell.setAttribute("colspan", 2);
-      totalLabelCell.textContent = "Total:";
+      totalLabelCell.textContent = "Total:"; 
       totalRow.appendChild(totalLabelCell);
 
       const totalArmorCell = document.createElement("td");
-      totalArmorCell.textContent = totalArmor;
+	  const totalArmorRounded = Math.round(totalArmor * 10) / 10;
+      totalArmorCell.textContent = totalArmorRounded;
       totalRow.appendChild(totalArmorCell);
 
       const totalWeightCell = document.createElement("td");
