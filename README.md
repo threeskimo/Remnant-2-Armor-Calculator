@@ -1,8 +1,6 @@
 # Remnant II: Armor Calculator <a href="https://threeskimo.github.io/Remnant-2-Armor-Calculator/" target="_blank" ><img align="right" style="margin-top:10px;" src="https://img.shields.io/badge/Demo-238636?style=for-the-badge"></a>
 A calculator that helps determine the highest armor value you can achieve at a specific weight in Remnant II. Calculations are performed in javascript.
 
->**NOTE:** This calculator currently only contains the Armor sets that are available at launch. If I'm still playing Remnant II at the time of any additional armor sets being released, I will update the calculator.
-
 ## Why?
 
 If you are familiar with how Remnant II's armor system works, weight is directly related to your character’s Dodge and Stamina. Each armor has a certain weight number, and you will receive a stamina cost penalty if the total Weight value exceeds a certain threshold. Generally, you want to keep your character as light as possible without sacrificing your defense. The thresholds are as follows:
