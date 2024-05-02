@@ -20,7 +20,7 @@ This calculator determines the best armor pieces (head, body, legs, gloves) to u
 3. The tool should show sets of armors (head, body, legs, gloves) that will get you the highest armor value possible for the weight specified.
 
 ## Changelog
-* [[04-24-2024](https://github.com/threeskimo/Remnant-2-Armor-Calculator/commit/06bf5f51b6aabb26b636657cd474c3d45649163e)] Added Disciple and Battle armor sets, Bloodless Crown, Dandy Topper, True Crimson Crown, Mudtooth's Hat, and Survivor Mask.
+* [[04-24-2024](https://github.com/threeskimo/Remnant-2-Armor-Calculator/commit/06bf5f51b6aabb26b636657cd474c3d45649163e)] Added Disciple and Battle armor sets, Bloodless Crown, Dandy Topper, True Crimson Crown, Mudtooth's Hat, and Survivor Mask. <sup>[[1](https://github.com/threeskimo/Remnant-2-Armor-Calculator/commit/06bf5f51b6aabb26b636657cd474c3d45649163e)] [[2](https://github.com/threeskimo/Remnant-2-Armor-Calculator/commit/6b51c6543a6e11af1656fb3dd361a78721fe996c)] [[3](https://github.com/threeskimo/Remnant-2-Armor-Calculator/commit/60dd3f88dc1b77686683e9a8a53495d3ec518f6b)]</sup>
 * [[11-16-2023](https://github.com/threeskimo/Remnant-2-Armor-Calculator/commit/995c2e6974bff5c013f93de8b6d5287c79f8c5a9)] Added Crimson Guard and Zealot sets.
 * [[11-14-2023](https://github.com/threeskimo/Remnant-2-Armor-Calculator/commit/f44a068e2db2ce4dd5885d9b1d04657fc1b80f9b)] Updated Labyrinth Gauntlet armor/weight values.
 * [[11-06-2023](https://github.com/threeskimo/Remnant-2-Armor-Calculator/commit/219f4362bf6f9316cdc688d5ea520212fd85be01)] Armor updated with the values from 10-26-2023 patch. 
